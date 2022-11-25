@@ -1,0 +1,44 @@
+h5,
+h3,
+p,
+.radio_btn_detalle,
+#castracion-btn,
+.file_uploader {
+  margin-left: 4rem;
+}
+
+h1 {
+  text-align: center;
+  background-color: rgb(93, 53, 178);
+  color: #fafafa;
+  border-radius: 5px;
+}
+
+.form_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 5px;
+  margin-top: 1rem;
+}
+
+hr {
+  color: #ffffff;
+}
+
+.detalle_combo {
+  display: flex;
+}
+
+.vacunas_combo {
+  display: flex;
+  gap: 3rem;
+}
+
+.adjuntar_titulo {
+  font-size: medium;
+}
+
+p {
+  font-size: medium;
+}

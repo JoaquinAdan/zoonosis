@@ -1,0 +1,22 @@
+.button-to-data {
+  color: #82368c;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.data-dog-container {
+  justify-content: center;
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+}
+.data-dog {
+  width: 100%;
+  height: 200px;
+  background-color: rgb(230, 230, 230);
+  border-radius: 20px;
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+}
