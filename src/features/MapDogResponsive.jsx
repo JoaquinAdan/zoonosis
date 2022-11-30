@@ -179,6 +179,7 @@ const MapDogResponsive = ({ size }) => {
           {partBody === "pataDerAtr" && " Pata derecha atrás"}
           {partBody === "cola" && " Cola"}
         </span>
+
         <TextField
           id="outlined-multiline-static"
           label={partBody === "" ? "Seleccione una parte del perro" : "Descripción"}
