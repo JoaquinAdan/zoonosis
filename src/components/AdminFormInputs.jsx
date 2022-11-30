@@ -2,29 +2,30 @@ import React from "react";
 import { useState, useEffect } from "react";
 // import { GiPadlockOpen, GiPadlock } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
-import AdminInputsDesk from "../features/AdminInputsDesk";
-import useBreakpoint from "../hooks/useBreakpoint"
+import AdminInputsResponsive from "../features/AdminInputsResponsive";
+import useAuth from "../hooks/useAuth"
 
 const AdminFormInputs = () => {
-  const matches = useBreakpoint("sm")
   const initialState = "";
   const [inputNameText, setInputNameText] = useState(initialState);
-  const [inputLastNameText, setInputLastNameText] = useState(initialState);
+  const [inputPassword, setInputPassword] = useState(initialState);
   const [selected, setSelected] = useState("");
-  const [error, setError] = useState("");
+  const [isError, setIsError] = useState("");
   const [password, setPasword] = useState(false);
   const navigate = useNavigate();
 
+  const { saveAuthInStorage} = useAuth();
+
   //MANEJADOR DE INPUTS
   const inputN = document.getElementById("input-name");
-  const inputLN = document.getElementById("input-last-name");
+  const inputP = document.getElementById("input-password");
 
   const handleInputNameChange = () => {
     setInputNameText(inputN.value);
   };
 
-  const handleInputLastNameChange = () => {
-    setInputLastNameText(inputLN.value);
+  const handleInputPasswordChange = () => {
+    setInputPassword(inputP.value);
   };
 
   const handleCheckboxChange = (e) => {
@@ -33,34 +34,48 @@ const AdminFormInputs = () => {
 
     if (e.target.checked === false) {
       localStorage.removeItem("nombre", inputNameText);
-      localStorage.removeItem("contraseña", inputLastNameText);
+      localStorage.removeItem("contraseña", inputPassword);
       localStorage.setItem("toggle-switch", false);
     }
   };
 
   const dependencie =
     inputNameText !== initialState &&
-    inputLastNameText !== initialState &&
+    inputPassword !== initialState &&
     inputNameText != null &&
-    inputLastNameText != null;
+    inputPassword != null;
 
-  const saveData = () => {
+  const saveData = (e) => {
+    e.preventDefault()
     if (dependencie) {
       if (selected === true) {
-        localStorage.setItem("nombre", inputNameText);
-        localStorage.setItem("contraseña", inputLastNameText);
+        saveAuthInStorage({inputNameText, inputPassword})
       }
-      if (inputNameText !== "" && inputLastNameText !== "") {
+      if (inputNameText !== "" && inputPassword !== "") {
         localStorage.setItem("toggle-switch", selected === true);
       }
-      navigate("/admin/zoonosis");
+      // navigate("/admin/zoonosis");
     }
-    if (inputNameText === "" || inputLastNameText === "") {
+    if (inputNameText === "" && inputPassword === "") {
       setTimeout(() => {
-        setError("vacio");
+        setIsError("vacio");
       }, 0);
       setTimeout(() => {
-        setError("");
+        setIsError("");
+      }, 3000);
+    } else if (inputNameText === "" && inputPassword.length > 1) {
+      setTimeout(() => {
+        setIsError("nombre");
+      }, 0);
+      setTimeout(() => {
+        setIsError("");
+      }, 3000);
+    } else if (inputPassword === "" && inputNameText.length > 1) {
+      setTimeout(() => {
+        setIsError("apellido");
+      }, 0);
+      setTimeout(() => {
+        setIsError("");
       }, 3000);
     }
   };
@@ -71,7 +86,7 @@ const AdminFormInputs = () => {
     return localStorage.getItem("nombre");
   };
 
-  const getLastNameData = () => {
+  const getPasswordData = () => {
     return localStorage.getItem("contraseña");
   };
 
@@ -81,37 +96,35 @@ const AdminFormInputs = () => {
 
   useEffect(() => {
     if (window.localStorage.length === 1) {
-      const inputLN = document.getElementById("input-last-name");
+      const inputP = document.getElementById("input-password");
       const inputN = document.getElementById("input-name");
-      if (inputLN.value === "" || inputN.value === "") {
-        setInputLastNameText(inputLastNameText);
+      if (inputP.value === "" || inputN.value === "") {
+        setInputPassword(inputPassword);
         setInputNameText(inputNameText);
       } else {
-        setInputLastNameText(inputLN.value);
+        setInputPassword(inputP.value);
         setInputNameText(inputN.value);
       }
     } else {
-      // setNombre(getNameData());
       setInputNameText(getNameData());
-      // setApellido(getLastNameData());
-      setInputLastNameText(getLastNameData());
+      setInputPassword(getPasswordData());
       setSelected(getToggleData());
     }
   }, []);
 
   return (
-      <AdminInputsDesk
-        error={error}
-        saveData={saveData}
-        selected={selected}
-        password={password}
-        handleInputNameChange={handleInputNameChange}
-        setPasword={setPasword}
-        inputNameText={inputNameText}
-        inputLastNameText={inputLastNameText}
-        handleInputLastNameChange={handleInputLastNameChange}
-        handleCheckboxChange={handleCheckboxChange}
-      />
+    <AdminInputsResponsive
+      isError={isError}
+      saveData={saveData}
+      selected={selected}
+      password={password}
+      handleInputNameChange={handleInputNameChange}
+      setPasword={setPasword}
+      inputNameText={inputNameText}
+      inputPassword={inputPassword}
+      handleInputPasswordChange={handleInputPasswordChange}
+      handleCheckboxChange={handleCheckboxChange}
+    />
   );
 };
 

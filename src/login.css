@@ -150,6 +150,7 @@
 }
 .actives-container {
   width: 100%;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -166,9 +167,7 @@
   height: 20px;
 }
 .error-relative {
-  position: absolute;
-  left: 0;
-  right: 0;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

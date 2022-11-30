@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import {
   Button,
   AppBar,
@@ -11,11 +10,14 @@ import {
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import arrowLeft from "../assets/arrowLeft.svg";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import pawIcon from "../assets/pawWhite.svg";
 
 const AdminNavBarContainer = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
-
+  const { logout, auth } = useAuth();
+  const userName = auth.userName;
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -30,10 +32,10 @@ const AdminNavBarContainer = ({ children }) => {
           sx={
             window.location.pathname.includes("zoonosis/")
               ? { justifyContent: "space-between" }
-              : { justifyContent: "flex-end" }
+              : { justifyContent: "space-between" }
           }
         >
-          {window.location.pathname.includes("zoonosis/") && (
+          {window.location.pathname.includes("zoonosis/") ? (
             <Button
               variant="contained"
               onClick={() => navigate("/admin/zoonosis")}
@@ -49,6 +51,12 @@ const AdminNavBarContainer = ({ children }) => {
               <img src={arrowLeft} alt="icono de flecha" />
               volver
             </Button>
+          ) : (
+            <img
+              src={pawIcon}
+              alt="logo"
+              style={{ width: "40px", height: "40px" }}
+            />
           )}
           <div
             onClick={handleMenu}
@@ -58,7 +66,7 @@ const AdminNavBarContainer = ({ children }) => {
               cursor: "pointer",
             }}
           >
-            <Typography>Usuario</Typography>
+            <Typography>{userName}</Typography>
             <AccountCircle />
           </div>
           <Menu
@@ -77,7 +85,12 @@ const AdminNavBarContainer = ({ children }) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem component={Link} to="/admin" onClick={handleClose}>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                logout();
+              }}
+            >
               Cerrar sesión
             </MenuItem>
           </Menu>

@@ -9,12 +9,12 @@ export const fontTheme = {
   },
   typography: {
     fontSize: 25,
-    fontFamily: ["sans-serif", "Quicksand"],
+    fontFamily:  "Quicksand",
   },
 };
 export const formTheme = {
   typography: {
-    fontSize: 15,
+    fontSize: 25,
   },
   breakpoints: {
     values: {

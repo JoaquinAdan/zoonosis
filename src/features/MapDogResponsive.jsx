@@ -23,10 +23,8 @@ const MapDogResponsive = ({ size }) => {
   const matches = useBreakpoint("md");
 
   const handleTextFieldChange = (e) => {
-    console.log(e.target.value);
     setDescription(e.target.value);
   };
-
   const clearDescription = () => {
     setDescription("");
   };
@@ -51,7 +49,7 @@ const MapDogResponsive = ({ size }) => {
           src={siluetaPerro}
         />
         <img
-          className="body-parts"
+          className={partBody === "orejaIzq" ? "body-parts-active" : "body-parts"}
           src={orejaIzquierda}
           style={{ width: `calc(90px * ${size})`, right: `calc(164px *${size})`, top: `calc(14px * ${size})` }}
           onClick={() => {
@@ -60,7 +58,7 @@ const MapDogResponsive = ({ size }) => {
           }}
         />
         <img
-          className="body-parts"
+          className={partBody === "orejaDer" ? "body-parts-active" : "body-parts"}
           src={orejaDerecha}
           style={{ width: `calc(90px * ${size})`, right: `calc(302px *${size})`, top: `calc(14px * ${size})` }}
           onClick={() => {
@@ -69,7 +67,7 @@ const MapDogResponsive = ({ size }) => {
           }}
         />
         <img
-          className="body-parts"
+          className={partBody === "cabeza" ? "body-parts-active" : "body-parts"}
           src={cabeza}
           style={{ width: `calc(120px * ${size})`, right: `calc(217px *${size})`, top: `calc(35px * ${size})` }}
           onClick={() => {
@@ -78,7 +76,7 @@ const MapDogResponsive = ({ size }) => {
           }}
         />
         <img
-          className="body-parts"
+          className={partBody === "hocico" ? "body-parts-active" : "body-parts"}
           src={hocico}
           style={{ width: `calc(70px * ${size})`, right: `calc(242px *${size})`, top: `calc(105px * ${size})` }}
           onClick={() => {
@@ -87,7 +85,7 @@ const MapDogResponsive = ({ size }) => {
           }}
         />
         <img
-          className="cuello-responsive body-parts"
+          className={partBody === "cuello" ? "body-parts-active" : "body-parts"}
           src={cuello}
           style={{ width: `calc(90px * ${size})`, right: `calc(248px *${size})`, top: `calc(165px * ${size})` }}
           onClick={() => {
@@ -96,7 +94,7 @@ const MapDogResponsive = ({ size }) => {
           }}
         />
         <img
-          className="lomo-responsive body-parts"
+          className={partBody === "lomo" ? "body-parts-active" : "body-parts"}
           src={lomo}
           style={{ width: `calc(310px * ${size})`, left: `calc(263px *${size})`, bottom: `calc(221px * ${size})` }}
           onClick={() => {
@@ -105,7 +103,7 @@ const MapDogResponsive = ({ size }) => {
           }}
         />
         <img
-          className="pecho-responsive body-parts"
+          className={partBody === "pecho" ? "body-parts-active" : "body-parts"}
           src={pecho}
           style={{ width: `calc(120px * ${size})`, right: `calc(243px *${size})`, top: `calc(221px * ${size})` }}
           onClick={() => {
@@ -114,7 +112,7 @@ const MapDogResponsive = ({ size }) => {
           }}
         />
         <img
-          className="pata-derecha-adelante-responsive body-parts"
+          className={partBody === "pataDerAde" ? "body-parts-active" : "body-parts"}
           src={pataderechaAdelante}
           style={{ width: `calc(60px * ${size})`, right: `calc(293px *${size})`, bottom: `calc(28px * ${size})` }}
           onClick={() => {
@@ -123,7 +121,7 @@ const MapDogResponsive = ({ size }) => {
           }}
         />
         <img
-          className="pata-derecha-atras-responsive body-parts"
+          className={partBody === "pataDerAtr" ? "body-parts-active" : "body-parts"}
           src={pataderechaAtras}
           style={{ width: `calc(150px * ${size})`, left: `calc(215px *${size})`, bottom: `calc(24px * ${size})` }}
           onClick={() => {
@@ -132,7 +130,7 @@ const MapDogResponsive = ({ size }) => {
           }}
         />
         <img
-          className="cola-responsive body-parts"
+          className={partBody === "cola" ? "body-parts-active" : "body-parts"}
           src={cola}
           style={{ width: `calc(110px * ${size})`, left: `calc(166px *${size})`, top: `calc(156px * ${size})` }}
           onClick={() => {
@@ -141,7 +139,7 @@ const MapDogResponsive = ({ size }) => {
           }}
         />
         <img
-          className="pata-izquierda-adelante-responsive body-parts"
+          className={partBody === "pataIzqAde" ? "body-parts-active" : "body-parts"}
           src={pataIzquierdaAdelante}
           style={{ width: `calc(60px * ${size})`, right: `calc(253px *${size})`, bottom: `calc(64px * ${size})` }}
           onClick={() => {
@@ -150,7 +148,7 @@ const MapDogResponsive = ({ size }) => {
           }}
         />
         <img
-          className="pata-izquierda-atras-responsive body-parts"
+          className={partBody === "pataIzqAtr" ? "body-parts-active" : "body-parts"}
           src={pataIzquierdaAtras}
           style={{ width: `calc(115px * ${size})`, left: `calc(289px *${size})`, bottom: `calc(41px * ${size})` }}
           onClick={() => {
@@ -184,7 +182,8 @@ const MapDogResponsive = ({ size }) => {
 
         <TextField
           id="outlined-multiline-static"
-          label="Descripción"
+          label={partBody === "" ? "Seleccione una parte del perro" : "Descripción"}
+          disabled={partBody === "" && true}
           multiline
           rows={5}
           onChange={handleTextFieldChange}

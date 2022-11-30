@@ -4,7 +4,7 @@ p,
 .radio_btn_detalle,
 #castracion-btn,
 .file_uploader {
-  margin-left: 4rem;
+  margin-left: 6rem;
 }
 
 h1 {
@@ -32,7 +32,12 @@ hr {
 
 .vacunas_combo {
   display: flex;
-  gap: 3rem;
+  gap: 3.5rem;
+}
+
+.genero_wrapper {
+  margin-top: 1rem;
+  margin-left: 1.5rem;
 }
 
 .adjuntar_titulo {
@@ -41,4 +46,99 @@ hr {
 
 p {
   font-size: medium;
+}
+
+@media (max-width: 450px) {
+  h5,
+  h3,
+  p,
+  .radio_btn_detalle,
+  #castracion-btn,
+  .file_uploader {
+    margin-left: 2rem;
+  }
+
+  .form_btn {
+    margin-top: 1rem;
+  }
+
+  .genero_wrapper {
+    margin-top: 1rem;
+    margin-left: 2rem;
+  }
+  
+  .detalle_combo {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .vacunas_combo{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .adjuntar_titulo {
+    font-size: small;
+  }
+
+  .home-container {
+    margin-right: 6rem;
+  }
+ 
+  .datos_prop{
+    width: 310px;
+  }
+  
+  h1{
+    font-size: medium;
+  }
+
+}
+@media (max-width: 420px) {
+  h5,
+  h3,
+  p,
+  .radio_btn_detalle,
+  #castracion-btn,
+  .file_uploader {
+    margin-left: 2rem;
+  }
+
+  .form_btn {
+    margin-top: 1rem;
+  }
+
+  .genero_wrapper {
+    margin-top: 1rem;
+    margin-left: 2rem;
+  }
+  
+  .detalle_combo {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .vacunas_combo{
+    display: flex;
+    flex-direction: column;
+   
+  }
+  .adjuntar_titulo {
+    font-size: small;
+  }
+
+  .home-container {
+    margin-right: 1rem;
+  }
+
+  .datos_prop{
+    width: 310px;
+  }
+  
+  h1{
+    font-size: medium;
+  }
+
 }

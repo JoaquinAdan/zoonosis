@@ -1,30 +1,36 @@
 import React from "react";
 import useBreakpoint from "../hooks/useBreakpoint";
-import MapDogResponsive from "../features/MapDogResponsive";
+import AdminMapDogResponsive from "../features/AdminMapDogResponsive";
+import AdminAdiestrador from "./ficha/AdminAdiestrador";
+import AdminCanino from "./ficha/AdminCanino";
+import AdminCriador from "./ficha/AdminCriador";
+import AdminDetalleSanitario from "./ficha/AdminDetalleSanitario";
+import AdminPropietario from "./ficha/AdminPropietario";
+import AdminSeguro from "./ficha/AdminSeguro";
+import AdminVeterinario from "./ficha/AdminVeterinario";
 
-const AdminGridDataDogs = () => {
-  const matchesLG = useBreakpoint("lg");
+const AdminGridDataDogs = ({ dataDog, isLoading }) => {
   const matchesMD = useBreakpoint("md");
   return (
     <>
+      <div style={{display: "flex", justifyContent: "center", width: "100%"}}>
+        <AdminMapDogResponsive size={(0.5).toString()} dataDog={dataDog?.observaciones}/>
+      </div>
       <div
         className="data-dog-container"
         style={
-          matchesLG
-            ? {gridTemplateColumns: "repeat(3, 1fr)"}
-            : matchesMD
-            ? {gridTemplateColumns: "repeat(2, 1fr)"}
-            : {gridTemplateColumns: "repeat(1, 1fr)"}
+          matchesMD
+            ? { gridTemplateColumns: "repeat(2, 1fr)" }
+            : { gridTemplateColumns: "repeat(1, 1fr)" }
         }
       >
-        <div className="data-dog">1</div>
-        <div className="data-dog">2</div>
-        <div className="data-dog">3</div>
-        <div className="data-dog">4</div>
-        <div className="data-dog">5</div>
-        <div className="data-dog">6</div>
-        {/* <MapDogResponsive size={(0.4
-          ).toString()}/> */}
+        <AdminAdiestrador dataDog={dataDog} isLoading={isLoading} />
+        <AdminCanino dataDog={dataDog} isLoading={isLoading} />
+        <AdminCriador dataDog={dataDog} isLoading={isLoading} />
+        <AdminDetalleSanitario dataDog={dataDog} isLoading={isLoading} />
+        <AdminPropietario dataDog={dataDog} isLoading={isLoading} />
+        <AdminSeguro dataDog={dataDog} isLoading={isLoading} />
+        <AdminVeterinario dataDog={dataDog} isLoading={isLoading} />
       </div>
     </>
   );

@@ -45,24 +45,25 @@ const FormZoo = () => {
             </a>
           </div>
         )}
-        <Container maxWidth="md" sx={matches && {ml: "675px"}}>
+        <Container maxWidth="md" sx={matches && {ml: "650px"}}>
           <Box
+            className="main-container"
             component="form"
             sx={{
               "& .MuiTextField-root": {
                 m: 1,
                 width: "30ch",
-                marginLeft: "4rem",
+                marginLeft: "6.5rem",
               },
               bgcolor: "#fafafa",
-              marginLeft: "8rem",
             }}
             noValidate
             autoComplete="off"
           >
-            <div>
+            <div className="main-wrapper">
               <h1>Registro Municipal de Perros Potencialmente Peligrosos</h1>
-              <div id="datos_propietario">
+              <div id="datos_propietario" className="datos_prop">
+                
                 {/* DATOS PROPIETARIO */}
                 <h3>DATOS PROPIETARIO</h3>
                 <p>Nombre y Apellido</p>
@@ -79,7 +80,7 @@ const FormZoo = () => {
                       </InputAdornment>
                     ),
                   }}
-                />
+                  />
 
                 <TextField
                   required
@@ -98,8 +99,8 @@ const FormZoo = () => {
                 <p>Datos Generales</p>
                 <TextField
                   required
+                  label="Fecha Nacimiento"
                   id="filled-required"
-                  placeholder="Fecha Nacimiento"
                   variant="filled"
                   type="date"
                   InputProps={{
@@ -135,7 +136,7 @@ const FormZoo = () => {
                       </InputAdornment>
                     ),
                   }}
-                />
+                  />
 
                 <TextField
                   id="filled-required"
@@ -164,8 +165,8 @@ const FormZoo = () => {
                   }}
                 />
               </div>
-              <hr />
 
+              <hr />
               {/* DATOS CRIADORES */}
               <div id="datos_criadores">
                 <h3>CRIADORES (Completar en el caso que corresponda)</h3>
@@ -252,6 +253,7 @@ const FormZoo = () => {
 
               {/* DETALLES SANITARIOS */}
               <h3>DETALLES SANITARIOS</h3>
+              
               <div className="vacunas_combo">
                 <FormControl id="castracion-btn">
                   <FormLabel>Castración</FormLabel>
@@ -315,19 +317,38 @@ const FormZoo = () => {
                     />
                   </RadioGroup>
                 </FormControl>
-                <TextField
-                  variant="filled"
-                  placeholder="Veterinario actuante"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <GiHealthNormal />
-                      </InputAdornment>
-                    ),
-                  }} 
-                />
+                
+                <div >
+                  <TextField
+                    variant="filled"
+                    placeholder="Veterinario actuante"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <GiHealthNormal />
+                        </InputAdornment>
+                      ),
+                    }} 
+                    />
 
+                  <TextField
+                    required
+                    label="Fecha Adiestramiento"
+                    type="date"
+                    id="filled-required"
+                    placeholder="Telefono Alt."
+                    variant="filled"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <HiPhone />
+                        </InputAdornment>
+                      ),
+                    }}
+                    />
+                </div>
               </div>
+
               <br />
               <p>Datos Veterinario</p>
               <TextField
@@ -407,7 +428,7 @@ const FormZoo = () => {
             <TextField
               required
               id="filled-required"
-              defaultValue="Nombre"
+              placeholder="Nombre"
               variant="filled"
               InputProps={{
                 startAdornment: (
@@ -449,7 +470,7 @@ const FormZoo = () => {
             <TextField
               required
               id="filled-required"
-              defaultValue="Matricula N°"
+              placeholder="Domicilio"
               variant="filled"
               InputProps={{
                 startAdornment: (
@@ -463,7 +484,7 @@ const FormZoo = () => {
             <TextField
               required
               id="filled-required"
-              defaultValue="Tipo adiestramiento"
+              placeholder="Telefono"
               variant="filled"
               InputProps={{
                 startAdornment: (
@@ -476,9 +497,10 @@ const FormZoo = () => {
 
             <TextField
               required
+              label="Fecha Adiestramiento"
               type="date"
               id="filled-required"
-              defaultValue="Fecha Adiestramiento"
+              placeholder="Telefono Alt."
               variant="filled"
               InputProps={{
                 startAdornment: (
@@ -532,14 +554,17 @@ const FormZoo = () => {
           }}
         />
 
-        <TextField required
+        <TextField
+          required
+          label="Vencimiento Póliza"
+          type="date"
           id="filled-required"
-          placeholder="Vencimiento"
+          placeholder="Telefono Alt."
           variant="filled"
-              InputProps={{
+          InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <GoCalendar />
+                <HiPhone />
               </InputAdornment>
             ),
           }}

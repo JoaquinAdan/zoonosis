@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import { AgGridReact } from "ag-grid-react";
 import AdminNavBarContainer from "../components/AdminNavBarContainer";
 import "ag-grid-community/styles/ag-grid.css";
@@ -8,26 +8,68 @@ import "../dashboard.css";
 import { AG_GRID_LOCALE_ES } from "../utils/locale.es";
 import { useNavigate } from "react-router-dom";
 import pataIcon from "../assets/paw.svg";
+import { fetchDogsTable } from "../services/api";
+import useAuth from "../hooks/useAuth";
+import useMyQuery from "../hooks/useMyQuery";
+import { Tooltip, Zoom } from "@mui/material";
+import altaIcon from "../assets/alta.svg";
+import bajaIcon from "../assets/baja.svg";
+import pendienteIcon from "../assets/pendiente.svg";
+import ExportExcel from "../features/ExportExcel";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const [rowData] = useState([
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxster", price: 72000 },
-  ]);
+  const gridRef = useRef();
+  const { auth } = useAuth();
+  const token = auth.token;
 
+  const { data } = useMyQuery(["getDogs", token], () => fetchDogsTable(token));
   const [columnDefs] = useState([
-    { field: "make" },
-    { field: "model" },
-    { field: "price" },
+    {
+      field: "canino",
+      valueGetter: (p) => p?.data?.canino?.nombre,
+    },
+    { field: "raza", valueGetter: (p) => p?.data?.canino?.raza },
+    { field: "tamaño", valueGetter: (p) => p?.data?.canino?.tamaño },
+    {
+      field: "estado",
+      cellRenderer: (p) => (
+        <>
+          {p?.data?.estado === 0 ? (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={pendienteIcon} alt="icono de baja" />
+              <div style={{ color: "#01579b" }}>Pendiente</div>
+            </div>
+          ) : p?.data?.estado === 1 ? (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={altaIcon} alt="icono de baja" />
+              <div style={{ color: "#1b5e20" }}>Aceptado</div>
+            </div>
+          ) : (
+            p?.data?.estado === 2 && (
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img src={bajaIcon} alt="icono de baja" />
+                <div style={{ color: "#c62828" }}>Rechazado</div>
+              </div>
+            )
+          )}
+        </>
+      ),
+    },
+    {
+      headerName: "Dueños",
+      valueGetter: (p) =>
+        p?.data?.propietario?.nombres + " " + p?.data?.propietario?.apellidos,
+    },
     {
       field: "masInformacion",
       headerName: "Más información",
+      filter: false,
+      sortable: false,
       cellRenderer: (p) => (
         <div
           className="button-to-data"
-          onClick={() => navigate("/admin/zoonosis/id")}
+          onClick={() => navigate(`/admin/zoonosis/${p.data.id}`)}
         >
           <img
             style={{ width: "20px" }}
@@ -51,13 +93,60 @@ const AdminDashboard = () => {
     };
   }, []);
 
-
   const localeText = useMemo(() => {
     return AG_GRID_LOCALE_ES;
   }, []);
-
   return (
     <AdminNavBarContainer>
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            width: "98%",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: "20px",
+          }}
+        >
+          {data
+            ?.map((e) => e.estado === 0 && 1)
+            ?.reduce((prev, curr) => prev + curr, 0) === 0 ? (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontWeight: "600",
+              }}
+            >
+              No tienes solicitudes pendientes 😋
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontWeight: "600",
+              }}
+            >
+              Solicitud pendiente
+              <Tooltip
+                title="Solicitud pendiente"
+                placement="top"
+                TransitionComponent={Zoom}
+              >
+                <div className="notification" />
+              </Tooltip>
+            </div>
+          )}
+          <ExportExcel gridRef={gridRef} />
+        </div>
+      </div>
       <div
         style={{
           height: "100vh",
@@ -75,11 +164,12 @@ const AdminDashboard = () => {
           }}
         >
           <AgGridReact
+            ref={gridRef}
             animateRows={true}
             domLayout="autoHeight"
-            // pagination={true}
-            // paginationPageSize={12}
-            rowData={rowData}
+            pagination={true}
+            paginationPageSize={20}
+            rowData={data}
             columnDefs={columnDefs}
             defaultColDef={defaultColDef}
             localeText={localeText}
