@@ -1,17 +1,27 @@
 import React from "react";
 import { Box } from "@mui/material";
 import AdminDatum from "./components/AdminDatum";
+import useBreakpoint from "../../hooks/useBreakpoint";
 
 const grid = {
   display: "grid",
   gridTemplateColumns: "50% 50%",
   gap: "5px",
   alignItems: "start",
-  mb: 20,
+  mb: 3,
+  width: "95%",
+};
+const gridResponsive = {
+  display: "grid",
+  gridTemplateColumns: "1fr",
+  gap: "5px",
+  alignItems: "start",
+  mb: 4,
   width: "95%",
 };
 
 const AdminAdiestrador = ({ dataDog, isLoading }) => {
+  const matches = useBreakpoint("sm")
   return (
     <div className="data-dog">
       <h3
@@ -24,7 +34,7 @@ const AdminAdiestrador = ({ dataDog, isLoading }) => {
       >
         Adiestrador:
       </h3>
-      <Box sx={grid}>
+      <Box sx={matches ? grid : gridResponsive}>
         <AdminDatum
           title="Nombre::"
           text={

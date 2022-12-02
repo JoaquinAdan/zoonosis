@@ -11,10 +11,12 @@ import AdminVeterinario from "./ficha/AdminVeterinario";
 
 const AdminGridDataDogs = ({ dataDog, isLoading }) => {
   const matchesMD = useBreakpoint("md");
+  const matchesSM = useBreakpoint("sm");
   return (
     <>
       <div style={{display: "flex", justifyContent: "center", width: "100%"}}>
-        <AdminMapDogResponsive size={(0.5).toString()} dataDog={dataDog?.observaciones}/>
+        
+        <AdminMapDogResponsive size={matchesSM ? (0.5).toString() : (0.4).toString() } dataDog={dataDog?.observaciones}/>
       </div>
       <div
         className="data-dog-container"

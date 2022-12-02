@@ -1,21 +1,20 @@
 import React, { useState, useMemo, useRef } from "react";
-import { AgGridReact } from "ag-grid-react";
 import AdminNavBarContainer from "../components/AdminNavBarContainer";
+import useAuth from "../hooks/useAuth";
+import useMyQuery from "../hooks/useMyQuery";
+import pendienteIcon from "../assets/pendiente.svg";
+import pataIcon from "../assets/paw.svg";
+import altaIcon from "../assets/alta.svg";
+import bajaIcon from "../assets/baja.svg";
+import ExportExcel from "../features/ExportExcel";
+import { AgGridReact } from "ag-grid-react";
+import { AG_GRID_LOCALE_ES } from "../utils/locale.es";
+import { useNavigate } from "react-router-dom";
+import { fetchDogsTable } from "../services/api";
+import { Tooltip, Zoom } from "@mui/material";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import "../dashboard.css";
-import { AG_GRID_LOCALE_ES } from "../utils/locale.es";
-import { useNavigate } from "react-router-dom";
-import pataIcon from "../assets/paw.svg";
-import { fetchDogsTable } from "../services/api";
-import useAuth from "../hooks/useAuth";
-import useMyQuery from "../hooks/useMyQuery";
-import { Tooltip, Zoom } from "@mui/material";
-import altaIcon from "../assets/alta.svg";
-import bajaIcon from "../assets/baja.svg";
-import pendienteIcon from "../assets/pendiente.svg";
-import ExportExcel from "../features/ExportExcel";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -149,7 +148,6 @@ const AdminDashboard = () => {
       </div>
       <div
         style={{
-          height: "100vh",
           display: "flex",
           placeContent: "center",
           marginTop: "20px",
@@ -158,7 +156,6 @@ const AdminDashboard = () => {
         <div
           className="ag-theme-material"
           style={{
-            height: 400,
             width: "98%",
             border: "1px solid #e2e2e2",
           }}
@@ -168,7 +165,7 @@ const AdminDashboard = () => {
             animateRows={true}
             domLayout="autoHeight"
             pagination={true}
-            paginationPageSize={20}
+            paginationPageSize={16}
             rowData={data}
             columnDefs={columnDefs}
             defaultColDef={defaultColDef}

@@ -56,3 +56,6 @@
 .ag-header-cell-text {
   color: rgb(12, 12, 12);
 }
+.ag-center-cols-clipper {
+  min-height: 250px !important;
+}

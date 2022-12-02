@@ -1,5 +1,5 @@
 import React from "react";
-import { LinearProgress, Box } from "@mui/material";
+import { LinearProgress } from "@mui/material";
 
 const AdminDatum = ({ title, text, isLoading }) => {
   return (

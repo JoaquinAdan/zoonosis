@@ -1,17 +1,27 @@
 import React from "react";
 import { Box } from "@mui/material";
 import AdminDatum from "./components/AdminDatum";
+import useBreakpoint from "../../hooks/useBreakpoint";
 
 const grid = {
   display: "grid",
   gridTemplateColumns: "50% 50%",
   gap: "20px",
   alignItems: "start",
-  mb: 5,
+  mb: 3,
+  width: "95%",
+};
+const gridResponsive = {
+  display: "grid",
+  gridTemplateColumns: "1fr",
+  gap: "5px",
+  alignItems: "start",
+  mb: 3,
   width: "95%",
 };
 
 const AdminDetalleSanitario = ({ dataDog, isLoading }) => {
+  const matches = useBreakpoint("sm")
   return (
     <div className="data-dog">
       <h3
@@ -24,7 +34,7 @@ const AdminDetalleSanitario = ({ dataDog, isLoading }) => {
       >
         Detalle sanitario:
       </h3>
-      <Box sx={grid}>
+      <Box sx={matches ? grid : gridResponsive}>
         <AdminDatum
           title="Antirrabica:"
           text={dataDog?.detalleSanitario?.antirrabica === false ? "No" : "Si"}

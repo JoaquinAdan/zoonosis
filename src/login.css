@@ -101,13 +101,13 @@
 }
 .eye-position {
   position: absolute;
-  right: 15px;
-  bottom: 5px;
+  right: 20px;
+  bottom: 0px;
 }
 .eye-position-mobile {
   position: absolute;
-  right: 15px;
-  bottom: 5px;
+  right: 20px;
+  bottom: 0px;
 }
 .eye {
   width: 20px;
